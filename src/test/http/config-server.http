@@ -5,4 +5,4 @@ GET http://localhost:8888/service-publication-microservice/default
 GET http://localhost:8083/actuator/health
 
 ###
-GET http://localhost:8083/actuator/prometheus
+GET http://localhost:8085/actuator/prometheus
