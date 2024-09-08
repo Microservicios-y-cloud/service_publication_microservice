@@ -1,21 +1,26 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@Builder
+@Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Servicio {
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
+    private String description;
+    private BigDecimal unitValue;
 
-    private String nombre;
-    private String precioUnitario;
+    @OneToOne
+    private Location destination;
 
 }

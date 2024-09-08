@@ -12,8 +12,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class ServicioTransporte {
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String address;
+    private Double latitude;
+    private Double longitude;
+    private String country;
+    private String city;
+    private String municipality;
 }

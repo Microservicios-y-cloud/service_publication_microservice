@@ -1,9 +1,8 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.time.LocalDate;
+
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -11,9 +10,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-public class Ubicacion {
+public class AccommodationService extends Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private AccommodationType type;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Integer capacity;
 }

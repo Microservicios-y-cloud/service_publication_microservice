@@ -8,11 +8,11 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-public class ServicioAlojamiento {
+public class FoodService extends Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
-    private Servicio servicio;
+    @Enumerated(EnumType.STRING)
+    private FoodType foodType;
+    private String schedule;
 }
