@@ -5,14 +5,15 @@ import java.time.Instant;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@SuperBuilder
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

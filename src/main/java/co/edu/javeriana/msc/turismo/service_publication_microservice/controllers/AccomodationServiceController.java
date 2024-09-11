@@ -1,36 +1,38 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.controllers;
 
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.ServiceRequest;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.ServiceResponse;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.services.ServiceService;
+
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceRequest;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.services.AccommodationServiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/services/accommodation")
 @RequiredArgsConstructor
-public class ServiceController {
-    private final ServiceService serviceService;
+public class AccomodationServiceController {
+    private final AccommodationServiceService accomodationServiceService;
 
     @PostMapping
-    public ResponseEntity<Integer> createService(
-            @RequestBody @Valid ServiceRequest request) {
-        return ResponseEntity.ok(serviceService.createService(request));
+    public ResponseEntity<Long> createService(
+            @RequestBody @Valid AccommodationServiceRequest request) {
+        return ResponseEntity.ok(accomodationServiceService.createService(request));
     }
 
     @GetMapping("/{service-id}")
-    public ResponseEntity<ServiceResponse> getService(
+    public ResponseEntity<AccommodationServiceResponse> getService(
             @PathVariable("service-id") Long serviceId) {
-        return ResponseEntity.ok(serviceService.findById(serviceId));
+        return ResponseEntity.ok(accomodationServiceService.findById(serviceId));
     }
 
     @GetMapping
-    public ResponseEntity<List<ServiceResponse>> findAll(){
-        return ResponseEntity.ok(serviceService.findAll());
+    public ResponseEntity<List<AccommodationServiceResponse>> findAll(){
+        return ResponseEntity.ok(accomodationServiceService.findAll());
     }
 }

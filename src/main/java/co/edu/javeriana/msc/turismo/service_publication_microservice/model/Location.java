@@ -12,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

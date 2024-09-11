@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TransportType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

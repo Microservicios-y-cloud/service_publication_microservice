@@ -1,7 +1,5 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.dto;
 
-import co.edu.javeriana.msc.turismo.service_publication_microservice.model.Location;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,7 +8,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-public record AccomodationServiceRequest(
+public record AccommodationServiceRequest(
         Long id,
         @NotNull(message = "The name of the service is required")
         String name,

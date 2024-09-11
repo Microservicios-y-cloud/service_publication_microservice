@@ -1,8 +1,7 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.controllers;
 
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.ServiceRequest;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.ServiceResponse;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.services.AccomodationServiceService;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.services.ServiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,23 +13,17 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/services")
 @RequiredArgsConstructor
-public class AccomodationServiceController {
-    private final AccomodationServiceService accomodationServiceService;
+public class ServiceController {
+    private final ServiceService serviceService;
 
-    @PostMapping
-    public ResponseEntity<Integer> createService(
-            @RequestBody @Valid ServiceRequest request) {
-        return ResponseEntity.ok(accomodationServiceService.createService(request));
-    }
-
-    @GetMapping("/{accomodation-service-id}")
+    @GetMapping("/{service-id}")
     public ResponseEntity<ServiceResponse> getService(
-            @PathVariable("accomodation-service-id") Long accomodationServiceId) {
-        return ResponseEntity.ok(accomodationServiceService.findById(accomodationServiceId));
+            @PathVariable("service-id") Long serviceId) {
+        return ResponseEntity.ok(serviceService.findById(serviceId));
     }
 
     @GetMapping
     public ResponseEntity<List<ServiceResponse>> findAll(){
-        return ResponseEntity.ok(accomodationServiceService.findAll());
+        return ResponseEntity.ok(serviceService.findAll());
     }
 }
