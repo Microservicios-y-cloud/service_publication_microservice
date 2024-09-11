@@ -12,7 +12,9 @@ public class FoodService extends Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private FoodType foodType;
-    private String schedule;
+
+
+    @ManyToOne
+    @JoinColumn(name = "food_type_id", nullable = false)
+    private FoodType foodType; // Referencia a la entidad FoodType
 }

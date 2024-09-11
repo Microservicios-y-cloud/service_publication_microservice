@@ -1,6 +1,7 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.model;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,5 +23,8 @@ public class Service {
 
     @OneToOne
     private Location destination;
+
+    private Instant startDate;
+    private Instant  endDate;
 
 }

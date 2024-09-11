@@ -1,5 +1,6 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.model;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
@@ -14,8 +15,10 @@ public class AccommodationService extends Service {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private AccommodationType type;
-    private LocalDate startDate;
-    private LocalDate endDate;
+
+    
+    @ManyToOne
+    @JoinColumn(name = "accommodation_type_id", nullable = false)
+    private AccommodationType type; // Referencia a la entidad AccommodationType
     private Integer capacity;
 }
