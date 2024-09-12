@@ -22,6 +22,7 @@ public class TransportationServiceMapper {
                                 .build())
                 .startDate(request.startDate())
                 .endDate(request.endDate())
+                .createdBy(request.supplierId())
                 .transportType(
                         TransportType.builder()
                                 .id(request.transportTypeId())
@@ -46,7 +47,8 @@ public class TransportationServiceMapper {
                         transportationService.getDestination().getCountry(),
                         transportationService.getDestination().getCity(),
                         transportationService.getStartDate(),
-                        transportationService.getEndDate()
+                        transportationService.getEndDate(),
+                        transportationService.getCreatedBy()
                 ),
                 transportationService.getOrigin().getId(),
                 transportationService.getOrigin().getCountry(),

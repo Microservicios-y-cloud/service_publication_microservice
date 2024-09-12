@@ -25,6 +25,8 @@ public record AccommodationServiceRequest(
         @NotNull(message = "The end date of the service is required")
         @FutureOrPresent(message = "The end date of the service must be in the present or future")
         Instant  endDate,
+        @NotNull(message = "The supplier id of the service is required")
+        String supplierId,
         @NotNull(message = "The accomodation type of the service is required")
         Long accommodationTypeId,
         @NotNull(message = "The capacity of the service is required")

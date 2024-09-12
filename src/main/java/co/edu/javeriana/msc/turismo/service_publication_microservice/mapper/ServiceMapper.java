@@ -14,7 +14,8 @@ public class ServiceMapper {
                 service.getDestination().getCountry(),
                 service.getDestination().getCity(),
                 service.getStartDate(),
-                service.getEndDate()
+                service.getEndDate(),
+                service.getCreatedBy()
         );
     }
 }

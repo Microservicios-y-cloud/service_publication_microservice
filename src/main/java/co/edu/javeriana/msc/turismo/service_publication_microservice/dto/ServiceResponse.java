@@ -16,6 +16,7 @@ public record ServiceResponse(
         String country,
         String city,
         Instant startDate,
-        Instant  endDate
+        Instant  endDate,
+        String createdBy
 ) {
 }

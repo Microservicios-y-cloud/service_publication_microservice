@@ -24,6 +24,8 @@ public record TransportationServiceRequest(
         @NotNull(message = "The end date of the service is required")
         @FutureOrPresent(message = "The end date of the service must be in the present or future")
         Instant  endDate,
+        @NotNull(message = "The supplier id of the service is required")
+        String supplierId,
         @NotNull(message = "The transport type of the service is required")
         Long transportTypeId,
         @NotNull(message = "The company of the service is required")

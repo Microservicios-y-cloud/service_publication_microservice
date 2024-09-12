@@ -24,6 +24,8 @@ public record FoodServiceRequest(
         @NotNull(message = "The end date of the service is required")
         @FutureOrPresent(message = "The end date of the service must be in the present or future")
         Instant  endDate,
+        @NotNull(message = "The supplier id of the service is required")
+        String supplierId,
         @NotNull(message = "The food type of the service is required")
         Long foodTypeId
 ) {

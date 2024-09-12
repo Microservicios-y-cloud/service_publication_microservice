@@ -6,6 +6,7 @@ import java.time.Instant;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedBy;
 
 @Getter
 @Setter
@@ -27,5 +28,9 @@ public class Service {
 
     private Instant startDate;
     private Instant  endDate;
+
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    private String createdBy;
 
 }

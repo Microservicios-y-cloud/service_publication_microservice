@@ -22,6 +22,7 @@ public class FoodServiceMapper {
                                 .build())
                 .startDate(request.startDate())
                 .endDate(request.endDate())
+                .createdBy(request.supplierId())
                 .foodType(
                         FoodType.builder()
                                 .id(request.foodTypeId())
@@ -40,7 +41,8 @@ public class FoodServiceMapper {
                         foodService.getDestination().getCountry(),
                         foodService.getDestination().getCity(),
                         foodService.getStartDate(),
-                        foodService.getEndDate()
+                        foodService.getEndDate(),
+                        foodService.getCreatedBy()
                 ),
                 foodService.getFoodType().getId(),
                 foodService.getFoodType().getName()

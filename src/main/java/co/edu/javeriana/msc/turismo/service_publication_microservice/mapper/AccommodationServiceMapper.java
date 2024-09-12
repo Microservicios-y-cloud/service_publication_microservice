@@ -22,6 +22,7 @@ public class AccommodationServiceMapper {
                                                                 .build())
                                 .startDate(request.startDate())
                                 .endDate(request.endDate())
+                                .createdBy(request.supplierId())
                                 .type(
                                                 AccommodationType.builder()
                                                                 .id(request.accommodationTypeId())
@@ -41,7 +42,8 @@ public class AccommodationServiceMapper {
                                                 accommodationService.getDestination().getCountry(),
                                                 accommodationService.getDestination().getCity(),
                                                 accommodationService.getStartDate(),
-                                                accommodationService.getEndDate()
+                                                accommodationService.getEndDate(),
+                                                accommodationService.getCreatedBy()
                                 ),
                                 accommodationService.getType().getId(),
                                 accommodationService.getType().getName(),
