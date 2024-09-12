@@ -8,7 +8,7 @@ GET http://localhost:8083/actuator/health
 GET http://localhost:8083/actuator/prometheus
 
 ###
-GET http://localhost:8083/services/1
+GET http://localhost:8083/services
 
 ###
 GET http://localhost:8083/services/accommodation
@@ -18,3 +18,20 @@ GET http://localhost:8083/services/food
 
 ###
 GET http://localhost:8083/services/transportation
+
+##Usando security, es decir el gateway
+
+@host = http://localhost:8080
+
+### Customer Login
+# @name login
+POST {{host}}/keycloak-server/realms/myrealm/protocol/openid-connect/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=myapp&username=customer3&password=customer3
+
+###
+@token = {{login.response.body.$.access_token}}
+
+GET {{host}}/service-publication-microservice/services
+Authorization: Bearer {{token}}
