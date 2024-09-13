@@ -8,6 +8,11 @@ spring:
   config:
     import: configserver:http://localhost:8888
 
+  graphql:
+    graphiql:
+      enabled: true
+    path: /graphql
+
   h2:
     console:
       enabled: true
