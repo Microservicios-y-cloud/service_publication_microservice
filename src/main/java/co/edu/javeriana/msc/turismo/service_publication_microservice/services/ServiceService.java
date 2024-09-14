@@ -54,4 +54,9 @@ public class ServiceService {
                 .collect(Collectors.toList());
     }
 
+    public List<ServiceResponse> findAllBySupplier(String supplierId) {
+        return serviceRepository.findAllByCreatedBy(supplierId).stream()
+                .map(serviceMapper::toServiceResponse)
+                .collect(Collectors.toList());
+    }
 }

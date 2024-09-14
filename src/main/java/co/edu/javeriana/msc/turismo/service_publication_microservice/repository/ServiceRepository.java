@@ -21,8 +21,10 @@ public interface ServiceRepository extends JpaRepository<Service, Long> {
             "OR LOWER(s.destination.municipality) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Service> findAllByKeyword(String keyword);
 
-    @Query("SELECT s FROM Service s " +
-            "WHERE s.unitValue = :unitValue")
+    //convertimos el unit value en string para saber si los numeros que tiene unitValue podrían estar en los numeros del unitValue del servicio
+    @Query("SELECT s FROM Service s WHERE CAST(s.unitValue AS string) LIKE CONCAT('%', :unitValue, '%')")
     List<Service> findAllByUnitValueKeyword(BigDecimal unitValue);
+
+    List<Service> findAllByCreatedBy(String createdBy);
 }
 

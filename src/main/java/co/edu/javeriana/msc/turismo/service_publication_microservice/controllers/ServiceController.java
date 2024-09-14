@@ -26,4 +26,10 @@ public class ServiceController {
     public ResponseEntity<List<ServiceResponse>> findAll(){
         return ResponseEntity.ok(serviceService.findAll());
     }
+
+    @GetMapping("/supplier/{supplier-id}")
+    public ResponseEntity<List<ServiceResponse>> findAllBySupplier(
+            @PathVariable("supplier-id") String supplierId) {
+        return ResponseEntity.ok(serviceService.findAllBySupplier(supplierId));
+    }
 }
