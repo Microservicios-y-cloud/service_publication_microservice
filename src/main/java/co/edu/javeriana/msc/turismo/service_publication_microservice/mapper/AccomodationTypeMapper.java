@@ -28,7 +28,7 @@ public class AccomodationTypeMapper {
         }
 
         return AccommodationType.builder()
-                .id(foodTypeResponse.AccomodationTypeId())   // Usa FoodTypeId() aquí
+                .id(foodTypeResponse.accomodationTypeId())   // Usa FoodTypeId() aquí
                 .name(foodTypeResponse.name())       // Usa name() aquí
                 .build();
     }

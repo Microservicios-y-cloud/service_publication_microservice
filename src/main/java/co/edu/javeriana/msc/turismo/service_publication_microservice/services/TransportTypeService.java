@@ -16,18 +16,18 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TransportTypeService {
-    private final TransportTypeRepository TransportTypeRepository;
-    private final TransportTypeMapper TransportTypeMapper;
+    private final TransportTypeRepository transportTypeRepository;
+    private final TransportTypeMapper transportTypeMapper;
 
     public TransportTypeResponse findById(Long foodTypeId) {
-        return TransportTypeRepository.findById(foodTypeId)
-                .map(TransportTypeMapper::toTransportTypeResponse)
+        return transportTypeRepository.findById(foodTypeId)
+                .map(transportTypeMapper::toTransportTypeResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Food type not found with id: " + foodTypeId));
     }
 
     public List<TransportTypeResponse> findAll() {
-        return TransportTypeRepository.findAll().stream()
-                .map(TransportTypeMapper::toTransportTypeResponse)
+        return transportTypeRepository.findAll().stream()
+                .map(transportTypeMapper::toTransportTypeResponse)
                 .collect(Collectors.toList());
     }
 }

@@ -26,7 +26,7 @@ public class FoodTypeMapper {
         }
 
         return FoodType.builder()
-                .id(foodTypeResponse.FoodTypeId())   // Usa FoodTypeId() aquí
+                .id(foodTypeResponse.foodTypeId())   // Usa FoodTypeId() aquí
                 .name(foodTypeResponse.name())       // Usa name() aquí
                 .build();
     }
