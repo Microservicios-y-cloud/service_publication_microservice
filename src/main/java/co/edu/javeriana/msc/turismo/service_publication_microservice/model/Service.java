@@ -23,7 +23,7 @@ public class Service {
     private String description;
     private BigDecimal unitValue;
 
-    @OneToOne
+    @OneToMany
     private Location destination;
 
     private Instant startDate;
