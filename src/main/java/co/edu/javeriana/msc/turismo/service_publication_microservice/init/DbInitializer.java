@@ -46,6 +46,8 @@ public class DbInitializer implements CommandLineRunner {
         Faker fakerGeneral = new Faker();
         Instant now = Instant.now();
 
+
+
         // Asegúrate de que startDate es una fecha válida dentro del rango
         Instant startDate = fakerGeneral.timeAndDate().between(now, now.plus(Duration.ofDays(30)));
         Instant endDate = fakerGeneral.timeAndDate().between(startDate.plus(Duration.ofDays(2)), startDate.plus(Duration.ofDays(32)));
@@ -85,6 +87,7 @@ public class DbInitializer implements CommandLineRunner {
         for (int i = 0; i < 10; i++) { //TODO use API to get real locations
             Location location = new Location();
             Faker faker = new Faker();
+            //System.out.println(faker.hobby().activity());
             location.setAddress(faker.address().fullAddress());
             location.setCity(faker.address().city());
             location.setCountry(faker.address().country());
@@ -103,7 +106,7 @@ public class DbInitializer implements CommandLineRunner {
         accommodationService1.setCapacity(fakerGeneral.number().numberBetween(1, 10));
         accommodationService1.setUnitValue(BigDecimal.valueOf(fakerGeneral.number().numberBetween(100000, 1000000)));
         accommodationService1.setDestination(locationRepository.findById(1L).get());
-        accommodationService1.setCreatedBy("6a965c40-81ec-4dd1-a68c-17d8ab43b13e");
+        accommodationService1.setCreatedBy("524f9a80-156e-4ccb-b0ea-474dcb8664e7");
 
         accommodationServiceRepository.save(accommodationService1);
 
@@ -119,7 +122,7 @@ public class DbInitializer implements CommandLineRunner {
         foodService1.setStartDate(foodServiceStartDate);
         foodService1.setEndDate(foodServiceEndDate);
         foodService1.setDestination(locationRepository.findById(2L).get());
-        foodService1.setCreatedBy("6a965c40-81ec-4dd1-a68c-17d8ab43b13e");
+        foodService1.setCreatedBy("524f9a80-156e-4ccb-b0ea-474dcb8664e7");
 
         foodServiceRepository.save(foodService1);
 
@@ -137,7 +140,7 @@ public class DbInitializer implements CommandLineRunner {
         transportationService1.setUnitValue(BigDecimal.valueOf(fakerGeneral.number().numberBetween(100000, 1000000)));
         transportationService1.setOrigin(locationRepository.findById(4L).get());
         transportationService1.setDestination(locationRepository.findById(3L).get());
-        transportationService1.setCreatedBy("6a965c40-81ec-4dd1-a68c-17d8ab43b13e");
+        transportationService1.setCreatedBy("524f9a80-156e-4ccb-b0ea-474dcb8664e7");
 
         transportationServiceRepository.save(transportationService1);
 
