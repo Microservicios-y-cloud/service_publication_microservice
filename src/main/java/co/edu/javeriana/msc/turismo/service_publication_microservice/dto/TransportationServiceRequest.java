@@ -17,7 +17,7 @@ public record TransportationServiceRequest(
         @Positive(message = "The unit value of the service must be positive")
         BigDecimal unitValue,
         @NotNull(message = "The destination of the service is required")
-        Long destinationId,
+        LocationResponse destination,
         @NotNull(message = "The start date of the service is required")
         @FutureOrPresent(message = "The start date of the service must be in the present or future")
         Instant startDate,
@@ -27,10 +27,10 @@ public record TransportationServiceRequest(
         @NotNull(message = "The supplier id of the service is required")
         String supplierId,
         @NotNull(message = "The transport type of the service is required")
-        Long transportTypeId,
+        TransportTypeResponse transportType,
         @NotNull(message = "The company of the service is required")
         String company,
         @NotNull(message = "The origin of the service is required")
-        Long originId
+        LocationResponse origin
 ) {
 }

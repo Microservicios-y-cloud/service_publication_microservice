@@ -18,17 +18,17 @@ public record AccommodationServiceRequest(
         @Positive(message = "The unit value of the service must be positive")
         BigDecimal unitValue,
         @NotNull(message = "The destination of the service is required")
-        Long destinationId,
+        LocationResponse destination,
         @NotNull(message = "The start date of the service is required")
         @FutureOrPresent(message = "The start date of the service must be in the present or future")
         Instant startDate,
         @NotNull(message = "The end date of the service is required")
         @FutureOrPresent(message = "The end date of the service must be in the present or future")
-        Instant  endDate,
+        Instant endDate,
         @NotNull(message = "The supplier id of the service is required")
         String supplierId,
         @NotNull(message = "The accomodation type of the service is required")
-        Long accommodationTypeId,
+        AccommodationTypeResponse accommodationType,
         @NotNull(message = "The capacity of the service is required")
         @Positive(message = "The capacity of the service must be positive")
         Integer capacity

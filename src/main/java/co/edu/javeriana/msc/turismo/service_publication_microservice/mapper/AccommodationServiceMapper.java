@@ -2,6 +2,7 @@ package co.edu.javeriana.msc.turismo.service_publication_microservice.mapper;
 
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceRequest;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationTypeResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.ServiceResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.AccommodationService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.AccommodationType;
@@ -18,15 +19,23 @@ public class AccommodationServiceMapper {
                                 .unitValue(request.unitValue())
                                 .destination(
                                                 Location.builder()
-                                                                .id(request.destinationId())
+                                                                .id(request.destination().id())
+                                                                .address(request.destination().address())
+                                                                .latitude(request.destination().latitude())
+                                                                .longitude(request.destination().longitude())
+                                                                .country(request.destination().country())
+                                                                .city(request.destination().city())
+                                                                .municipality(request.destination().municipality())
                                                                 .build())
                                 .startDate(request.startDate())
                                 .endDate(request.endDate())
                                 .createdBy(request.supplierId())
                                 .type(
                                                 AccommodationType.builder()
-                                                                .id(request.accommodationTypeId())
-                                                                .build())
+                                                                .id(request.accommodationType().accomodationTypeId())
+                                                                .name(request.accommodationType().name())
+                                                                .build()
+                                )
                                 .capacity(request.capacity())
                                 .build();
         }
@@ -45,8 +54,10 @@ public class AccommodationServiceMapper {
                                                 accommodationService.getEndDate(),
                                                 accommodationService.getCreatedBy()
                                 ),
-                                accommodationService.getType().getId(),
-                                accommodationService.getType().getName(),
+                                new AccommodationTypeResponse(
+                                                accommodationService.getType().getId(),
+                                                accommodationService.getType().getName()
+                                ),
                                 accommodationService.getCapacity());
         }
 }

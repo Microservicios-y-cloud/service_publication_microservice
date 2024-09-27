@@ -1,8 +1,6 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.mapper;
 
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.ServiceResponse;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.TransportationServiceRequest;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.TransportationServiceResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.*;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.Location;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.TransportType;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.TransportationService;
@@ -18,19 +16,34 @@ public class TransportationServiceMapper {
                 .unitValue(request.unitValue())
                 .destination(
                         Location.builder()
-                                .id(request.destinationId())
-                                .build())
+                                .id(request.destination().id())
+                                .address(request.destination().address())
+                                .latitude(request.destination().latitude())
+                                .longitude(request.destination().longitude())
+                                .country(request.destination().country())
+                                .city(request.destination().city())
+                                .municipality(request.destination().municipality())
+                                .build()
+                )
                 .startDate(request.startDate())
                 .endDate(request.endDate())
                 .createdBy(request.supplierId())
                 .transportType(
                         TransportType.builder()
-                                .id(request.transportTypeId())
-                                .build())
+                                .id(request.transportType().transportTypeId())
+                                .name(request.transportType().name())
+                                .build()
+                )
                 .company(request.company())
                 .origin(
                         Location.builder()
-                                .id(request.originId())
+                                .id(request.origin().id())
+                                .address(request.origin().address())
+                                .latitude(request.origin().latitude())
+                                .longitude(request.origin().longitude())
+                                .country(request.origin().country())
+                                .city(request.origin().city())
+                                .municipality(request.origin().municipality())
                                 .build()
                 )
                 .build();
@@ -50,11 +63,19 @@ public class TransportationServiceMapper {
                         transportationService.getEndDate(),
                         transportationService.getCreatedBy()
                 ),
-                transportationService.getOrigin().getId(),
-                transportationService.getOrigin().getCountry(),
-                transportationService.getOrigin().getCity(),
-                transportationService.getTransportType().getId(),
-                transportationService.getTransportType().getName(),
+                new LocationResponse(
+                        transportationService.getOrigin().getId(),
+                        transportationService.getOrigin().getAddress(),
+                        transportationService.getOrigin().getLatitude(),
+                        transportationService.getOrigin().getLongitude(),
+                        transportationService.getOrigin().getCountry(),
+                        transportationService.getOrigin().getCity(),
+                        transportationService.getOrigin().getMunicipality()
+                ),
+                new TransportTypeResponse(
+                        transportationService.getTransportType().getId(),
+                        transportationService.getTransportType().getName()
+                ),
                 transportationService.getCompany()
         );
     }

@@ -5,11 +5,8 @@ import java.time.Instant;
 
 public record TransportationServiceResponse(
         ServiceResponse serviceResponse,
-        Long originId,
-        String originCountry,
-        String originCity,
-        Long transportTypeId,
-        String transportType,
+        LocationResponse origin,
+        TransportTypeResponse transportType,
         String company
 ) {
 }

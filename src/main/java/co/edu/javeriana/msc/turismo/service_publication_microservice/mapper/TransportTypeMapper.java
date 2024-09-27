@@ -1,9 +1,7 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.mapper;
 
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.TransportTypeResponse;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.FoodTypeResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.TransportType;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.model.FoodType;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +26,7 @@ public class TransportTypeMapper {
         }
 
         return TransportType.builder()
-                .id(foodTypeResponse.accomodationTypeId())   // Usa FoodTypeId() aquí
+                .id(foodTypeResponse.transportTypeId())   // Usa FoodTypeId() aquí
                 .name(foodTypeResponse.name())       // Usa name() aquí
                 .build();
     }

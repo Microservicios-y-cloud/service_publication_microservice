@@ -5,8 +5,7 @@ import java.time.Instant;
 
 public record AccommodationServiceResponse(
         ServiceResponse serviceResponse,
-        Long accommodationTypeId,
-        String accommodationType,
+        AccommodationTypeResponse accommodationType,
         Integer capacity
 ) {
 }

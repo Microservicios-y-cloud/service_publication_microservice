@@ -2,6 +2,7 @@ package co.edu.javeriana.msc.turismo.service_publication_microservice.mapper;
 
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.FoodServiceRequest;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.FoodServiceResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.FoodTypeResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.ServiceResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.FoodService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.FoodType;
@@ -18,15 +19,23 @@ public class FoodServiceMapper {
                 .unitValue(request.unitValue())
                 .destination(
                         Location.builder()
-                                .id(request.destinationId())
+                                .id(request.destination().id())
+                                .address(request.destination().address())
+                                .latitude(request.destination().latitude())
+                                .longitude(request.destination().longitude())
+                                .country(request.destination().country())
+                                .city(request.destination().city())
+                                .municipality(request.destination().municipality())
                                 .build())
                 .startDate(request.startDate())
                 .endDate(request.endDate())
                 .createdBy(request.supplierId())
                 .foodType(
                         FoodType.builder()
-                                .id(request.foodTypeId())
-                                .build())
+                                .id(request.foodType().foodTypeId())
+                                .name(request.foodType().name())
+                                .build()
+                )
                 .build();
     }
 
@@ -44,8 +53,10 @@ public class FoodServiceMapper {
                         foodService.getEndDate(),
                         foodService.getCreatedBy()
                 ),
-                foodService.getFoodType().getId(),
-                foodService.getFoodType().getName()
+                new FoodTypeResponse(
+                        foodService.getFoodType().getId(),
+                        foodService.getFoodType().getName()
+                )
         );
     }
 }

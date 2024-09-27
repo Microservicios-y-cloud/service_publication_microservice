@@ -8,7 +8,7 @@ GET http://localhost:8083/actuator/health
 GET http://localhost:8083/actuator/prometheus
 
 ###
-GET http://localhost:8083/services
+GET http://localhost:8083/services/location
 
 ###
 GET http://localhost:8083/services/accommodation
@@ -38,3 +38,46 @@ grant_type=password&client_id=turismo&username=supplier2&password=supplier2
 
 GET {{host}}/service-publication-microservice/services
 Authorization: Bearer {{token}}
+
+###prueba cola de kafka
+< {%
+    now = new Date();
+    instantStart = now.toISOString();
+    instantEnd = now.setMonth(now.getMonth() + 1);
+    request.variables.set("instantStart", instantStart);
+    request.variables.set("instantEnd", instantEnd);
+%}
+POST http://localhost:8083/services/transportation
+Content-Type: application/json
+
+{
+  "name": "Transporte a la playa",
+  "description": "Transporte a la playa",
+  "unitValue": 1000,
+  "destination": {
+    "id": 9,
+    "address": "96823 Pagac Tunnel, West Barneymouth, IA 30612",
+    "latitude": 2.23587759,
+    "longitude": -9.38076522,
+    "country": "Marshall Islands",
+    "city": "Lockmanside",
+    "municipality": "South Dakota"
+  },
+  "startDate": "2024-09-27T10:15:30Z",
+  "endDate": "2024-09-28T18:00:00Z",
+  "supplierId": "6a965c40-81ec-4dd1-a68c-17d8ab43b13e",
+  "transportType": {
+    "transportTypeId": 5,
+    "name": "BOAT"
+  },
+  "company": "botes-veleros",
+  "origin": {
+    "id": 7,
+    "address": "198 Erick Rapid, Pagacbury, TX 67958",
+    "latitude": 73.52811861,
+    "longitude": 77.04869692,
+    "country": "Nicaragua",
+    "city": "South Ingridmouth",
+    "municipality": "Illinois"
+  }
+}

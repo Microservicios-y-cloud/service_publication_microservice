@@ -17,7 +17,7 @@ public record FoodServiceRequest(
         @Positive(message = "The unit value of the service must be positive")
         BigDecimal unitValue,
         @NotNull(message = "The destination of the service is required")
-        Long destinationId,
+        LocationResponse destination,
         @NotNull(message = "The start date of the service is required")
         @FutureOrPresent(message = "The start date of the service must be in the present or future")
         Instant startDate,
@@ -27,6 +27,6 @@ public record FoodServiceRequest(
         @NotNull(message = "The supplier id of the service is required")
         String supplierId,
         @NotNull(message = "The food type of the service is required")
-        Long foodTypeId
+        FoodTypeResponse foodType
 ) {
 }

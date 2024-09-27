@@ -5,7 +5,6 @@ import java.time.Instant;
 
 public record FoodServiceResponse(
         ServiceResponse serviceResponse,
-        Long foodTypeId,
-        String foodType
+        FoodTypeResponse foodType
 ) {
 }
