@@ -19,15 +19,5 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class TransportTypeController {
     private final TransportTypeService TransportTypeService;
-
-    @GetMapping("/{service-id}")
-    public ResponseEntity<TransportTypeResponse> getService(
-            @PathVariable("service-id") Long serviceId) {
-        return ResponseEntity.ok(TransportTypeService.findById(serviceId));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<TransportTypeResponse>> findAll(){
-        return ResponseEntity.ok(TransportTypeService.findAll());
-    }
+    /*MÉTODOS POST, PUT, DELETE (NO GET)*/
 }

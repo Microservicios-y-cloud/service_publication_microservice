@@ -2,12 +2,12 @@ package co.edu.javeriana.msc.turismo.service_publication_microservice.services;
 
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceRequest;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceResponse;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.SuperServiceDTO;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto.SuperServiceDTO;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.CRUDEventType;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.AccommodationServiceMapper;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.SuperServiceMapper;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.AccommodationService;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.ServicesQueueService;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.services.ServicesQueueService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.AccommodationServiceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -36,17 +36,5 @@ public class AccommodationServiceService {
         log.info("Accomodation service sent to queue: {}", superService);
 
         return accommodationService.getId();
-    }
-
-    public AccommodationServiceResponse findById(Long accommodationServiceId) {
-        return accommodationServiceRepository.findById(accommodationServiceId)
-                .map(accommodationServiceMapper::toAccommodationServiceResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Accomodation service not found, with id: " + accommodationServiceId));
-    }
-
-    public List<AccommodationServiceResponse> findAll() {
-        return accommodationServiceRepository.findAll().stream()
-                .map(accommodationServiceMapper::toAccommodationServiceResponse)
-                .collect(Collectors.toList());
     }
 }

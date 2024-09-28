@@ -18,16 +18,4 @@ import java.util.stream.Collectors;
 public class TransportTypeService {
     private final TransportTypeRepository transportTypeRepository;
     private final TransportTypeMapper transportTypeMapper;
-
-    public TransportTypeResponse findById(Long foodTypeId) {
-        return transportTypeRepository.findById(foodTypeId)
-                .map(transportTypeMapper::toTransportTypeResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Food type not found with id: " + foodTypeId));
-    }
-
-    public List<TransportTypeResponse> findAll() {
-        return transportTypeRepository.findAll().stream()
-                .map(transportTypeMapper::toTransportTypeResponse)
-                .collect(Collectors.toList());
-    }
 }

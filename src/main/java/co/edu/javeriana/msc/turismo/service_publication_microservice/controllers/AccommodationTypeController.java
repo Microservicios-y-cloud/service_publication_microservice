@@ -25,14 +25,5 @@ import lombok.extern.slf4j.Slf4j;
 public class AccommodationTypeController {
     private final AccommodationTypeService AccommodationTypeService;
 
-    @GetMapping("/{service-id}")
-    public ResponseEntity<AccommodationTypeResponse> getService(
-            @PathVariable("service-id") Long serviceId) {
-        return ResponseEntity.ok(AccommodationTypeService.findById(serviceId));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<AccommodationTypeResponse>> findAll(){
-        return ResponseEntity.ok(AccommodationTypeService.findAll());
-    }
+    /*MÉTODOS POST, PUT, DELETE (NO GET)*/
 }

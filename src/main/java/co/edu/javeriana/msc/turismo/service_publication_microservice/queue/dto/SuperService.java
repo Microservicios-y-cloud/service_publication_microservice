@@ -1,5 +1,9 @@
-package co.edu.javeriana.msc.turismo.service_publication_microservice.dto;
+package co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto;
 
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationTypeResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.FoodTypeResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.LocationResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.TransportTypeResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.ServiceType;
 import jakarta.validation.constraints.NotNull;
 

@@ -16,15 +16,4 @@ public class FoodTypeService {
     private final FoodTypeRepository foodTypeRepository;
     private final FoodTypeMapper foodTypeMapper;
 
-    public FoodTypeResponse findById(Long foodTypeId) {
-        return foodTypeRepository.findById(foodTypeId)
-                .map(foodTypeMapper::toFoodTypeResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Food type not found with id: " + foodTypeId));
-    }
-
-    public List<FoodTypeResponse> findAll() {
-        return foodTypeRepository.findAll().stream()
-                .map(foodTypeMapper::toFoodTypeResponse)
-                .collect(Collectors.toList());
-    }
 }

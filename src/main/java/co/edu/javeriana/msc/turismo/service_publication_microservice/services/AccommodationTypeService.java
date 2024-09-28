@@ -19,15 +19,4 @@ public class AccommodationTypeService {
     private final AccommodationTypeRepository accommodationTypeRepository;
     private final AccomodationTypeMapper accommodationTypeMapper;
 
-    public AccommodationTypeResponse findById(Long foodTypeId) {
-        return accommodationTypeRepository.findById(foodTypeId)
-                .map(accommodationTypeMapper::toAccomodationTypeResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Food type not found with id: " + foodTypeId));
-    }
-
-    public List<AccommodationTypeResponse> findAll() {
-        return accommodationTypeRepository.findAll().stream()
-                .map(accommodationTypeMapper::toAccomodationTypeResponse)
-                .collect(Collectors.toList());
-    }
 }

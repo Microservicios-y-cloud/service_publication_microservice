@@ -5,6 +5,7 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.Servi
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.AccommodationService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.FoodService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.TransportationService;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto.SuperService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

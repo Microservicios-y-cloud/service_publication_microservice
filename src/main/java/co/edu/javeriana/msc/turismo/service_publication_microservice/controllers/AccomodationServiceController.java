@@ -24,15 +24,4 @@ public class AccomodationServiceController {
             @RequestBody @Valid AccommodationServiceRequest request) {
         return ResponseEntity.ok(accomodationServiceService.createService(request));
     }
-
-    @GetMapping("/{service-id}")
-    public ResponseEntity<AccommodationServiceResponse> getService(
-            @PathVariable("service-id") Long serviceId) {
-        return ResponseEntity.ok(accomodationServiceService.findById(serviceId));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<AccommodationServiceResponse>> findAll(){
-        return ResponseEntity.ok(accomodationServiceService.findAll());
-    }
 }

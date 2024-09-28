@@ -1,13 +1,13 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.services;
 
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.SuperServiceDTO;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto.SuperServiceDTO;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.TransportationServiceRequest;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.TransportationServiceResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.CRUDEventType;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.SuperServiceMapper;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.TransportationServiceMapper;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.TransportationService;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.ServicesQueueService;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.services.ServicesQueueService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.TransportationServiceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -32,17 +32,5 @@ public class TransportationServiceService {
         servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.CREATE, superService));
         log.info("Transportation service sent to queue: {}", superService);
         return transportationService.getId();
-    }
-
-    public TransportationServiceResponse findById(Long transportationServiceId) {
-        return transportationServiceRepository.findById(transportationServiceId)
-                .map(transportationServiceMapper::toTransportationServiceResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Accomodation service not found, with id: " + transportationServiceId));
-    }
-
-    public List<TransportationServiceResponse> findAll() {
-        return transportationServiceRepository.findAll().stream()
-                .map(transportationServiceMapper::toTransportationServiceResponse)
-                .collect(Collectors.toList());
     }
 }

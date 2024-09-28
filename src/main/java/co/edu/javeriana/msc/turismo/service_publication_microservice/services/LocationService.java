@@ -25,15 +25,4 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final LocationMapper locationMapper;
 
-    public LocationResponse findById(Long locationId) {
-        return locationRepository.findById(locationId)
-                .map(locationMapper::toLocationResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Service not found, with id: " + locationId));
-    }
-
-    public List<LocationResponse> findAll() {
-        return locationRepository.findAll().stream()
-                .map(locationMapper::toLocationResponse)
-                .collect(Collectors.toList());
-    }
 }

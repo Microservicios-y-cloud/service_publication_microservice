@@ -1,8 +1,6 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto;
 
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationTypeResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.CRUDEventType;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.model.AccommodationType;
 import lombok.*;
 
 import java.io.Serializable;
@@ -13,8 +11,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AccommodationTypeDTO implements Serializable {
+public class ServiceTypeDTO implements Serializable {
     private LocalDateTime dateTime;
     private CRUDEventType eventType;
-    private AccommodationTypeResponse type;
+    private ServiceType type;
 }

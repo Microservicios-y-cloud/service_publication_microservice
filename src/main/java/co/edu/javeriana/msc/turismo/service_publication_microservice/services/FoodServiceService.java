@@ -6,7 +6,8 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.CRUDE
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.FoodServiceMapper;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.SuperServiceMapper;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.FoodService;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.ServicesQueueService;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto.SuperServiceDTO;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.services.ServicesQueueService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.FoodServiceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -33,17 +34,5 @@ public class FoodServiceService {
         servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.CREATE, superService));
         log.info("Food service sent to queue: {}", superService);
         return foodService.getId();
-    }
-
-    public FoodServiceResponse findById(Long foodServiceId) {
-        return foodServiceRepository.findById(foodServiceId)
-                .map(foodServiceMapper::toFoodServiceResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Accomodation service not found, with id: " + foodServiceId));
-    }
-
-    public List<FoodServiceResponse> findAll() {
-        return foodServiceRepository.findAll().stream()
-                .map(foodServiceMapper::toFoodServiceResponse)
-                .collect(Collectors.toList());
     }
 }

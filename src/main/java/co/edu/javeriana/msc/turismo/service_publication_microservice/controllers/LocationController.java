@@ -19,14 +19,6 @@ import java.util.List;
 public class LocationController {
     private final LocationService locationService;
 
-    @GetMapping("/{service-id}")
-    public ResponseEntity<LocationResponse> getService(
-            @PathVariable("service-id") Long serviceId) {
-        return ResponseEntity.ok(locationService.findById(serviceId));
-    }
+    /*MÉTODOS POST, PUT, DELETE (NO GET)*/
 
-    @GetMapping
-    public ResponseEntity<List<LocationResponse>> findAll(){
-        return ResponseEntity.ok(locationService.findAll());
-    }
 }

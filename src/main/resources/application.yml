@@ -25,6 +25,13 @@ spring:
         sendServices-out-0:
           # Name of the queue that will manage the messages
           destination: query-services-queue
+        sendServiceTypes-out-0:
+          # Name of the queue that will manage the messages
+          destination: query-types-queue
+        sendLocation-out-0:
+          # Name of the queue that will manage the messages
+          destination: query-locations-queue
+
 
   graphql:
     graphiql:

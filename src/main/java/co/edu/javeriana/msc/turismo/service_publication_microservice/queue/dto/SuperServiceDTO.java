@@ -1,4 +1,4 @@
-package co.edu.javeriana.msc.turismo.service_publication_microservice.dto;
+package co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto;
 
 import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.CRUDEventType;
 import lombok.*;

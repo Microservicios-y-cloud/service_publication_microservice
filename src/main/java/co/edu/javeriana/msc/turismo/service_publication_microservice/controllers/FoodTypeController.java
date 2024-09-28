@@ -25,14 +25,5 @@ import lombok.extern.slf4j.Slf4j;
 public class FoodTypeController {
     private final FoodTypeService FoodTypeService;
 
-    @GetMapping("/{service-id}")
-    public ResponseEntity<FoodTypeResponse> getService(
-            @PathVariable("service-id") Long serviceId) {
-        return ResponseEntity.ok(FoodTypeService.findById(serviceId));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<FoodTypeResponse>> findAll(){
-        return ResponseEntity.ok(FoodTypeService.findAll());
-    }
+    /*MÉTODOS POST, PUT, DELETE (NO GET)*/
 }
