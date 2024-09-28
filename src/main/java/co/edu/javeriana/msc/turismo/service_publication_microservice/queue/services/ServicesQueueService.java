@@ -14,10 +14,12 @@ public class ServicesQueueService {
     // the property spring.cloud.stream.bindings.sendMessage-out-0.destination
     // from the application.yml file
     @Value("${spring.cloud.stream.bindings.sendServices-out-0.destination}")
-    private String queueName;
+    private String servicesQueue;
+
+    @Value("${spring.cloud.stream.bindings.sendTypesAndLocations-out-0.destination}")
     @Autowired
     private StreamBridge streamBridge;
     public boolean sendServices(SuperServiceDTO message) {
-        return streamBridge.send(queueName, MessageBuilder.withPayload(message).build());
+        return streamBridge.send(servicesQueue, MessageBuilder.withPayload(message).build());
     }
 }
