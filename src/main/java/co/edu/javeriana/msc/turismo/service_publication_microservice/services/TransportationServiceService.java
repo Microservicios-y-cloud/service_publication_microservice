@@ -8,6 +8,8 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.Supe
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.TransportationServiceMapper;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.model.TransportationService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.services.ServicesQueueService;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.LocationRepository;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.TransportTypeRepository;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.TransportationServiceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +27,19 @@ public class TransportationServiceService {
     private final TransportationServiceMapper transportationServiceMapper;
     private final SuperServiceMapper superServiceMapper;
     private final ServicesQueueService servicesQueueService;
+    private final LocationRepository locationRepository;
+    private final TransportTypeRepository transportTypeRepository;
     public Long createService(TransportationServiceRequest request) {
         var service = transportationServiceMapper.toTransportationService(request);
+        if(!locationRepository.existsById(service.getOrigin().getId())) {
+            throw new EntityNotFoundException("Origin location not found");
+        }
+        if(!locationRepository.existsById(service.getDestination().getId())) {
+            throw new EntityNotFoundException("Destination location not found");
+        }
+        if(!transportTypeRepository.existsById(service.getTransportType().getId())) {
+            throw new EntityNotFoundException("Transport type location not found");
+        }
         TransportationService transportationService = transportationServiceRepository.save(service);
         var superService = superServiceMapper.toSuperService(transportationService);
         servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.CREATE, superService));

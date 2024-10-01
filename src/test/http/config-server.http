@@ -63,8 +63,8 @@ Content-Type: application/json
     "city": "Lockmanside",
     "municipality": "South Dakota"
   },
-  "startDate": "2024-09-28T10:15:30Z",
-  "endDate": "2024-09-29T18:00:00Z",
+  "startDate": "2024-10-01T10:15:30Z",
+  "endDate": "2024-10-02T18:00:00Z",
   "supplierId": "6a965c40-81ec-4dd1-a68c-17d8ab43b13e",
   "transportType": {
     "transportTypeId": 5,

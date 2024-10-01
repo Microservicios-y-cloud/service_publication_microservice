@@ -9,6 +9,7 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.model.FoodS
 import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto.SuperServiceDTO;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.services.ServicesQueueService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.FoodServiceRepository;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.FoodTypeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,12 @@ public class FoodServiceService {
     private final FoodServiceMapper foodServiceMapper;
     private final SuperServiceMapper superServiceMapper;
     private final ServicesQueueService servicesQueueService;
+    private final FoodTypeRepository foodTypeRepository;
     public Long createService(FoodServiceRequest request) {
         var service = foodServiceMapper.toFoodService(request);
+        if(!foodTypeRepository.existsById(service.getFoodType().getId())) {
+            throw new EntityNotFoundException("Food type not found");
+        }
         FoodService foodService = foodServiceRepository.save(service);
         var superService = superServiceMapper.toSuperService(foodService);
         servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.CREATE, superService));
