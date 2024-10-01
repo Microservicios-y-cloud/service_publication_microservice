@@ -31,27 +31,17 @@ spring:
         sendLocation-out-0:
           # Name of the queue that will manage the messages
           destination: query-locations-queue
-
-
-  graphql:
-    graphiql:
-      enabled: true
-    path: /graphql
-
-  h2:
-    console:
-      enabled: true
-      path: /h2
-      port : 9003
   datasource:
-    url: jdbc:h2:file:./mydatabase
-    username: sa
-    password: ''
-    driverClassName: org.h2.Driver
+    url: jdbc:mysql://10.43.101.202:3306/services
+    username: kevinevelasco
+    password: kevinevelasco
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
 
 logging:
   level:
