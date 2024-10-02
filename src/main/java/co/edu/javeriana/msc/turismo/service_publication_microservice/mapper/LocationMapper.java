@@ -16,4 +16,16 @@ public class LocationMapper {
             location.getMunicipality()
         );
     }
+
+    public Location toLocation(LocationResponse request) {
+        return new Location(
+            request.id(),
+            request.address(),
+            request.latitude(),
+            request.longitude(),
+            request.country(),
+            request.city(),
+            request.municipality()
+        );
+    }
 }

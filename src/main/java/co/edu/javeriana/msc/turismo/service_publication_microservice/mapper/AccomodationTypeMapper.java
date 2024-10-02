@@ -22,14 +22,14 @@ public class AccomodationTypeMapper {
     }
 
     // Convertir de FoodTypeResponse a FoodType
-    public AccommodationType toAccomodationType(AccommodationTypeResponse foodTypeResponse) {
-        if (foodTypeResponse == null) {
+    public AccommodationType toAccomodationType(AccommodationTypeResponse accommodationTypeResponse) {
+        if (accommodationTypeResponse == null) {
             return null;
         }
 
         return AccommodationType.builder()
-                .id(foodTypeResponse.accomodationTypeId())   // Usa FoodTypeId() aquí
-                .name(foodTypeResponse.name())       // Usa name() aquí
+                .id(accommodationTypeResponse.accomodationTypeId())   // Usa FoodTypeId() aquí
+                .name(accommodationTypeResponse.name())       // Usa name() aquí
                 .build();
     }
 }

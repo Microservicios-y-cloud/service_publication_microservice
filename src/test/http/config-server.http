@@ -8,13 +8,13 @@ GET http://localhost:8083/actuator/health
 GET http://localhost:8083/actuator/prometheus
 
 ###
-GET http://localhost:8083/services/location
+GET http://localhost:8086/services/location
 
 ###
 GET http://localhost:8083/services/accommodation
 
 ###
-GET http://localhost:8083/services/food
+GET http://localhost:8086/types/food
 
 ###
 GET http://localhost:8083/services/transportation
@@ -47,37 +47,27 @@ Authorization: Bearer {{token}}
     request.variables.set("instantStart", instantStart);
     request.variables.set("instantEnd", instantEnd);
 %}
-POST http://localhost:8083/services/transportation
+POST http://localhost:8083/services/food
 Content-Type: application/json
 
 {
-  "name": "Transporte alta clase",
-  "description": "Transporte a la playa de alta clase",
-  "unitValue": 1000,
+  "name": "Comida rápida llevada directamente a tu hotel",
+  "description": "Transporte a las montañas",
+  "unitValue": 49990,
   "destination": {
-    "id": 9,
-    "address": "96823 Pagac Tunnel, West Barneymouth, IA 30612",
-    "latitude": 2.23587759,
-    "longitude": -9.38076522,
-    "country": "Marshall Islands",
-    "city": "Lockmanside",
-    "municipality": "South Dakota"
+    "id": 10,
+    "address": "Suite 372 0812 Crysta Mill, Mariahfurt, LA 43111",
+    "latitude": 87.34822841,
+    "longitude": 112.47083979,
+    "country": "Fiji",
+    "city": "East Larryview",
+    "municipality": "Montana"
   },
-  "startDate": "2024-10-01T10:15:30Z",
+  "startDate": "2024-10-02T10:15:30Z",
   "endDate": "2024-10-02T18:00:00Z",
   "supplierId": "6a965c40-81ec-4dd1-a68c-17d8ab43b13e",
-  "transportType": {
-    "transportTypeId": 5,
-    "name": "BOAT"
-  },
-  "company": "botes-veleros",
-  "origin": {
-    "id": 7,
-    "address": "198 Erick Rapid, Pagacbury, TX 67958",
-    "latitude": 73.52811861,
-    "longitude": 77.04869692,
-    "country": "Nicaragua",
-    "city": "South Ingridmouth",
-    "municipality": "Illinois"
+  "foodType": {
+    "foodTypeId": 3,
+    "name": "DINNER"
   }
 }
