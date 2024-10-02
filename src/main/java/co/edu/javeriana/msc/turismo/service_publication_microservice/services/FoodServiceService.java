@@ -40,4 +40,12 @@ public class FoodServiceService {
         log.info("Food service sent to queue: {}", superService);
         return foodService.getId();
     }
+
+    public void deleteService(Long id) {
+        var service = foodServiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Service not found"));
+        var superService = superServiceMapper.toSuperService(service);
+//        servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.DELETE, superService));
+//        log.info("Food service sent to queue: {}", superService);
+        foodServiceRepository.deleteById(id);
+    }
 }

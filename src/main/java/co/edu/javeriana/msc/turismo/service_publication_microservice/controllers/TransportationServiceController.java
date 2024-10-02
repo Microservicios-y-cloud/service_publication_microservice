@@ -20,4 +20,10 @@ public class TransportationServiceController {
             @RequestBody @Valid TransportationServiceRequest request) {
         return ResponseEntity.ok(transportationServiceService.createService(request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteService(@PathVariable Long id) {
+        transportationServiceService.deleteService(id);
+        return ResponseEntity.accepted().build();
+    }
 }

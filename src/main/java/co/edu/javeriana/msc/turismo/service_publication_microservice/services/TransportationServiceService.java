@@ -46,4 +46,12 @@ public class TransportationServiceService {
         log.info("Transportation service sent to queue: {}", superService);
         return transportationService.getId();
     }
+
+    public void deleteService(Long id) {
+        var service = transportationServiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Service not found"));
+        var superService = superServiceMapper.toSuperService(service);
+//        servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.DELETE, superService));
+//        log.info("Transportation service sent to queue: {}", superService);
+        transportationServiceRepository.deleteById(id);
+    }
 }

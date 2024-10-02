@@ -8,10 +8,10 @@ GET http://localhost:8083/actuator/health
 GET http://localhost:8083/actuator/prometheus
 
 ###
-GET http://localhost:8086/services/location
+GET http://localhost:8086/services
 
 ###
-GET http://localhost:8083/services/accommodation
+DELETE http://localhost:8083/services/food/202
 
 ###
 GET http://localhost:8086/types/food

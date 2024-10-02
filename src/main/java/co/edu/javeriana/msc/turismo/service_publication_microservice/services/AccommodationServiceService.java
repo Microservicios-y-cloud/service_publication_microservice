@@ -47,4 +47,12 @@ public class AccommodationServiceService {
 
         return accommodationService.getId();
     }
+
+    public void deleteService(Long id) {
+        var service = accommodationServiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Service not found"));
+        var superService = superServiceMapper.toSuperService(service);
+//        servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.DELETE, superService));
+//        log.info("Accomodation service sent to queue: {}", superService);
+        accommodationServiceRepository.deleteById(id);
+    }
 }

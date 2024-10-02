@@ -20,4 +20,10 @@ public class FoodServiceController {
             @RequestBody @Valid FoodServiceRequest request) {
         return ResponseEntity.ok(foodServiceService.createService(request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteService(@PathVariable Long id) {
+        foodServiceService.deleteService(id);
+        return ResponseEntity.accepted().build();
+    }
 }

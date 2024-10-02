@@ -24,4 +24,9 @@ public class AccomodationServiceController {
             @RequestBody @Valid AccommodationServiceRequest request) {
         return ResponseEntity.ok(accomodationServiceService.createService(request));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteService(@PathVariable Long id) {
+        accomodationServiceService.deleteService(id);
+        return ResponseEntity.accepted().build();
+    }
 }
