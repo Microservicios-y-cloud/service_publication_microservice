@@ -26,4 +26,10 @@ public class FoodServiceController {
         foodServiceService.deleteService(id);
         return ResponseEntity.accepted().build();
     }
+    @PutMapping
+    public ResponseEntity<Void> updateService(
+            @RequestBody @Valid FoodServiceRequest request) {
+        foodServiceService.updateService(request);
+        return ResponseEntity.accepted().build();
+    }
 }

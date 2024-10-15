@@ -29,4 +29,10 @@ public class AccomodationServiceController {
         accomodationServiceService.deleteService(id);
         return ResponseEntity.accepted().build();
     }
+    @PutMapping
+    public ResponseEntity<Void> updateService(
+            @RequestBody @Valid AccommodationServiceRequest request) {
+        accomodationServiceService.updateService(request);
+        return ResponseEntity.accepted().build();
+    }
 }

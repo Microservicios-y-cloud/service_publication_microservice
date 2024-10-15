@@ -11,7 +11,7 @@ GET http://localhost:8083/actuator/prometheus
 GET http://localhost:8086/services
 
 ###
-DELETE http://localhost:8083/services/food/202
+DELETE http://localhost:8083/services/accommodation/1
 
 ###
 GET http://localhost:8086/types/food
@@ -47,13 +47,14 @@ Authorization: Bearer {{token}}
     request.variables.set("instantStart", instantStart);
     request.variables.set("instantEnd", instantEnd);
 %}
-POST http://localhost:8083/services/food
+PUT http://localhost:8083/services/food
 Content-Type: application/json
 
 {
-  "name": "Comida rápida llevada directamente a tu hotel",
-  "description": "Transporte a las montañas",
-  "unitValue": 49990,
+  "id" : 155,
+  "name": "Comida rápida El GORDO",
+  "description": "Comida rápida que va desde hamburguesas, perros calientes, papas fritas, entre otros",
+  "unitValue": 58900,
   "destination": {
     "id": 10,
     "address": "Suite 372 0812 Crysta Mill, Mariahfurt, LA 43111",

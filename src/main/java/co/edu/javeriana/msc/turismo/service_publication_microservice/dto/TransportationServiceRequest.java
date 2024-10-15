@@ -11,7 +11,6 @@ public record TransportationServiceRequest(
         Long id,
         @NotNull(message = "The name of the service is required")
         String name,
-        @NotNull(message = "The description of the service is required")
         String description,
         @NotNull(message = "The unit value of the service is required")
         @Positive(message = "The unit value of the service must be positive")
@@ -19,10 +18,8 @@ public record TransportationServiceRequest(
         @NotNull(message = "The destination of the service is required")
         LocationResponse destination,
         @NotNull(message = "The start date of the service is required")
-        @FutureOrPresent(message = "The start date of the service must be in the present or future")
         Instant startDate,
         @NotNull(message = "The end date of the service is required")
-        @FutureOrPresent(message = "The end date of the service must be in the present or future")
         Instant  endDate,
         @NotNull(message = "The supplier id of the service is required")
         String supplierId,

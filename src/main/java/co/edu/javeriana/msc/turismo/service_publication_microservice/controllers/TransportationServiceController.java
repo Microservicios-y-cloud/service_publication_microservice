@@ -26,4 +26,10 @@ public class TransportationServiceController {
         transportationServiceService.deleteService(id);
         return ResponseEntity.accepted().build();
     }
+    @PutMapping
+    public ResponseEntity<Void> updateService(
+            @RequestBody @Valid TransportationServiceRequest request) {
+        transportationServiceService.updateService(request);
+        return ResponseEntity.accepted().build();
+    }
 }
