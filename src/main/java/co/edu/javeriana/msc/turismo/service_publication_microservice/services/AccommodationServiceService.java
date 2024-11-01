@@ -1,7 +1,6 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.services;
 
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceRequest;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto.SuperServiceDTO;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.enums.CRUDEventType;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.mapper.AccommodationServiceMapper;
@@ -17,10 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service

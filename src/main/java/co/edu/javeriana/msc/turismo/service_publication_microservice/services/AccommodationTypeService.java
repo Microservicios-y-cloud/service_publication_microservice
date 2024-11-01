@@ -38,4 +38,8 @@ public class AccommodationTypeService {
         log.info("Accommodation type created: {}", accommodationTypeEntity);
         return accommodationTypeEntity.getId();
     }
+
+    public boolean existsById(Long id) {
+        return accommodationTypeRepository.existsById(id);
+    }
 }
