@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccommodationServiceMapper {
-        public AccommodationService toAccomodationService(AccommodationServiceRequest request) {
+        public AccommodationService toAccommodationService(AccommodationServiceRequest request) {
                 return AccommodationService.builder()
                                 .id(request.id())
                                 .name(request.name())
@@ -32,7 +32,7 @@ public class AccommodationServiceMapper {
                                 .createdBy(request.supplierId())
                                 .type(
                                                 AccommodationType.builder()
-                                                                .id(request.accommodationType().accomodationTypeId())
+                                                                .id(request.accommodationType().accommodationTypeId())
                                                                 .name(request.accommodationType().name())
                                                                 .build()
                                 )

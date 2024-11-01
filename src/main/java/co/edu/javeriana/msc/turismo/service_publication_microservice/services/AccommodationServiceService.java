@@ -13,6 +13,7 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.ServiceUnavailableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class AccommodationServiceService {
     private final AccommodationTypeRepository accommodationTypeRepository;
 
     public Long createService(@Valid AccommodationServiceRequest request) {
-        var service = accommodationServiceMapper.toAccomodationService(request);
+        var service = accommodationServiceMapper.toAccommodationService(request);
         if (!locationRepository.existsById(service.getDestination().getId())) {
             throw new EntityNotFoundException("Location not found");
         }
@@ -40,27 +41,41 @@ public class AccommodationServiceService {
         }
         AccommodationService accommodationService = accommodationServiceRepository.save(service);
         var superService = superServiceMapper.toSuperService(accommodationService);
-        servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.CREATE, superService));
-        log.info("Accomodation service sent to queue to {}: {}", CRUDEventType.CREATE, superService);
-
+        var sent = servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.CREATE, superService));
+        if (sent) {
+            log.info("Accommodation service sent to queue to {}: {}", CRUDEventType.CREATE, superService);
+        } else {
+            log.error("Error sending accommodation service to queue to {}: {}", CRUDEventType.CREATE, superService);
+            throw new ServiceUnavailableException("Error sending accommodation service to queue. Kafka service is currently unavailable. Please try again later.");
+        }
         return accommodationService.getId();
     }
 
     public void deleteService(Long id) {
         var service = accommodationServiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Service not found"));
         var superService = superServiceMapper.toSuperService(service);
-        servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.DELETE, superService));
-        log.info("Accomodation service sent to queue to {}: {}", CRUDEventType.DELETE, superService);
-        accommodationServiceRepository.deleteById(id);
+        var sent = servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.DELETE, superService));
+        accommodationServiceRepository.delete(service);
+        if (sent) {
+            log.info("Accommodation service sent to queue to {}: {}", CRUDEventType.DELETE, superService);
+        } else {
+            log.error("Error sending accommodation service to queue to {}: {}", CRUDEventType.DELETE, superService);
+            throw new ServiceUnavailableException("Error sending accommodation service to queue. Kafka service is currently unavailable. Please try again later.");
+        }
     }
 
     public void updateService(@Valid AccommodationServiceRequest request) {
         var accommodationService = accommodationServiceRepository.findById(request.id()).orElseThrow(() -> new EntityNotFoundException("Service not found"));
         mergerService(accommodationService, request);
-        var service = accommodationServiceRepository.save(accommodationService);
-        var superService = superServiceMapper.toSuperService(service);
-        servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.UPDATE, superService));
-        log.info("Accomodation service sent to queue to {}: {}", CRUDEventType.UPDATE, superService);
+        var superService = superServiceMapper.toSuperService(accommodationService);
+        var sent = servicesQueueService.sendServices(new SuperServiceDTO(LocalDateTime.now(), CRUDEventType.UPDATE, superService));
+        accommodationServiceRepository.save(accommodationService);
+        if (sent) {
+            log.info("Accommodation service sent to queue to {}: {}", CRUDEventType.UPDATE, superService);
+        } else {
+            log.error("Error sending accommodation service to queue to {}: {}", CRUDEventType.UPDATE, superService);
+            throw new ServiceUnavailableException("Error sending accommodation service to queue. Kafka service is currently unavailable. Please try again later.");
+        }
     }
 
     private void mergerService(AccommodationService accommodationService, @Valid AccommodationServiceRequest request) {
@@ -68,7 +83,7 @@ public class AccommodationServiceService {
             accommodationService.setDestination(locationRepository.findById(request.destination().id()).orElseThrow(() -> new EntityNotFoundException("Location not found")));
         }
         if (request.accommodationType() != null) {
-            accommodationService.setType(accommodationTypeRepository.findById(request.accommodationType().accomodationTypeId()).orElseThrow(() -> new EntityNotFoundException("Accommodation type not found")));
+            accommodationService.setType(accommodationTypeRepository.findById(request.accommodationType().accommodationTypeId()).orElseThrow(() -> new EntityNotFoundException("Accommodation type not found")));
         }
         if(StringUtils.isNotBlank(request.name())){
             accommodationService.setName(request.name());

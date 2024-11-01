@@ -9,6 +9,7 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.dto.S
 import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.services.ServicesQueueService;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.FoodTypeRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.ws.rs.ServiceUnavailableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,15 @@ public class FoodTypeService {
         var foodType = foodTypeMapper.toFoodType(request);
         FoodType foodTypeEntity = foodTypeRepository.save(foodType);
         var serviceType = serviceTypeMapper.toServiceType(foodTypeEntity);
-        servicesQueueService.sendServiceType(new ServiceTypeDTO(LocalDateTime.now(), CRUDEventType.CREATE, serviceType));
+        var sent = servicesQueueService.sendServiceType(new ServiceTypeDTO(LocalDateTime.now(), CRUDEventType.CREATE, serviceType));
 
-        log.info("Food type created: {}", foodTypeEntity);
+        if(sent) {
+            log.info("Food type sent to queue to {}: {}", CRUDEventType.CREATE, serviceType);
+        } else {
+            log.error("Error sending food type to queue to {}: {}", CRUDEventType.CREATE, serviceType);
+            throw new ServiceUnavailableException("Error sending food type to queue. Kafka service is currently unavailable. Please try again later.");
+        }
+
         return foodTypeEntity.getId();
     }
 

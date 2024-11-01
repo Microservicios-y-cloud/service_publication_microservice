@@ -11,6 +11,7 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.servi
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.LocationRepository;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.ServiceRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.ws.rs.ServiceUnavailableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,9 +35,13 @@ public class LocationService {
         var location = locationMapper.toLocation(request);
         Location locationEntity = locationRepository.save(location);
         var locationDB = locationMapper.toLocationResponse(locationEntity);
-        servicesQueueService.sendLocation(new LocationDTO(LocalDateTime.now(), CRUDEventType.CREATE, locationDB));
-
-        log.info("Location created: {}", locationEntity);
+        var sent = servicesQueueService.sendLocation(new LocationDTO(LocalDateTime.now(), CRUDEventType.CREATE, locationDB));
+        if(sent) {
+            log.info("Location sent to queue to {}: {}", CRUDEventType.CREATE, locationDB);
+        } else {
+            log.error("Error sending location to queue to {}: {}", CRUDEventType.CREATE, locationDB);
+            throw new ServiceUnavailableException("Error sending location to queue. Kafka service is currently unavailable. Please try again later.");
+        }
         return locationEntity.getId();
     }
 

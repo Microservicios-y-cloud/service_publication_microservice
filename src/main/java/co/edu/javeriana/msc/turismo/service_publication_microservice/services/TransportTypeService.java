@@ -13,6 +13,7 @@ import co.edu.javeriana.msc.turismo.service_publication_microservice.queue.servi
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.TransportTypeRepository;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.FoodTypeRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.ws.rs.ServiceUnavailableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,13 @@ public class TransportTypeService {
         var transportType = transportTypeMapper.toTransportType(request);
         TransportType transportTypeEntity = transportTypeRepository.save(transportType);
         var serviceType = serviceTypeMapper.toServiceType(transportTypeEntity);
-        servicesQueueService.sendServiceType(new ServiceTypeDTO(LocalDateTime.now(), CRUDEventType.CREATE, serviceType));
-
-        log.info("Transport type created: {}", transportTypeEntity);
+        var sent = servicesQueueService.sendServiceType(new ServiceTypeDTO(LocalDateTime.now(), CRUDEventType.CREATE, serviceType));
+        if(sent) {
+            log.info("Transport type sent to queue to {}: {}", CRUDEventType.CREATE, serviceType);
+        } else {
+            log.error("Error sending transport type to queue to {}: {}", CRUDEventType.CREATE, serviceType);
+            throw new ServiceUnavailableException("Error sending transport type to queue. Kafka service is currently unavailable. Please try again later.");
+        }
         return transportTypeEntity.getId();
     }
 }

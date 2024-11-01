@@ -24,7 +24,7 @@ public record AccommodationServiceRequest(
         Instant endDate,
         @NotNull(message = "The supplier id of the service is required")
         String supplierId,
-        @NotNull(message = "The accomodation type of the service is required")
+        @NotNull(message = "The accommodation type of the service is required")
         AccommodationTypeResponse accommodationType,
         @NotNull(message = "The capacity of the service is required")
         @Positive(message = "The capacity of the service must be positive")

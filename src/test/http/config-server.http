@@ -39,20 +39,14 @@ grant_type=password&client_id=turismo&username=supplier2&password=supplier2
 GET {{host}}/service-publication-microservice/services
 Authorization: Bearer {{token}}
 
-###prueba cola de kafka
-< {%
-    now = new Date();
-    instantStart = now.toISOString();
-    instantEnd = now.setMonth(now.getMonth() + 1);
-    request.variables.set("instantStart", instantStart);
-    request.variables.set("instantEnd", instantEnd);
-%}
-PUT http://localhost:8083/services/food
+
+
+###
+POST http://localhost:8083/services/food
 Content-Type: application/json
 
 {
-  "id" : 155,
-  "name": "Comida rápida El GORDO",
+  "name": "Comida rápida El socito",
   "description": "Comida rápida que va desde hamburguesas, perros calientes, papas fritas, entre otros",
   "unitValue": 58900,
   "destination": {
