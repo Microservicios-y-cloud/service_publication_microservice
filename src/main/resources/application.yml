@@ -6,7 +6,7 @@ spring:
     name: service-publication-microservice
 
   config:
-    import: configserver:http://localhost:8888
+    import: configserver:${CONFIG_SERVER_URL:http://localhost:8888}
 
   # Message queue
   cloud:
@@ -15,7 +15,7 @@ spring:
         binder:
           # Kafka server URL
           # 9092 is the default port of Kafka
-          brokers: localhost:9092
+          brokers: ${KAFKA_URL:localhost:9092}
       bindings:
         # https://docs.spring.io/spring-cloud-stream/reference/spring-cloud-stream/functional-binding-names.htm
         # Format: <method name>-<in or out>-<index>
