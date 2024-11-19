@@ -31,7 +31,7 @@ public class LocationService {
     private final LocationMapper locationMapper;
     private final ServicesQueueService servicesQueueService;
 
-    public Long createLocation(LocationResponse request) {
+    public LocationResponse createLocation(LocationResponse request) {
         var location = locationMapper.toLocation(request);
         Location locationEntity = locationRepository.save(location);
         var locationDB = locationMapper.toLocationResponse(locationEntity);
@@ -42,7 +42,7 @@ public class LocationService {
             log.error("Error sending location to queue to {}: {}", CRUDEventType.CREATE, locationDB);
             throw new ServiceUnavailableException("Error sending location to queue. Kafka service is currently unavailable. Please try again later.");
         }
-        return locationEntity.getId();
+        return locationDB;
     }
 
 }
