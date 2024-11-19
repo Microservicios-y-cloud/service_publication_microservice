@@ -24,7 +24,7 @@ public class TransportationServiceController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteService(@PathVariable Long id) {
         transportationServiceService.deleteService(id);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.noContent().build();
     }
     @PutMapping
     public ResponseEntity<Void> updateService(
