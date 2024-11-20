@@ -1,11 +1,10 @@
 package co.edu.javeriana.msc.turismo.service_publication_microservice.controllers;
 
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationServiceRequest;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.AccommodationTypeResponse;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.FoodServiceRequest;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.FoodTypeResponse;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.dto.LocationResponse;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.AccommodationServiceRepository;
 import co.edu.javeriana.msc.turismo.service_publication_microservice.repository.FoodServiceRepository;
-import co.edu.javeriana.msc.turismo.service_publication_microservice.services.AccommodationServiceService;
+import co.edu.javeriana.msc.turismo.service_publication_microservice.services.FoodServiceService;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.jupiter.api.*;
@@ -30,17 +29,15 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @AutoConfigureGraphQlTester
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class AccommodationServiceControllerTest {
+class FoodServiceControllerTest {
 
     @Autowired
-    private AccommodationServiceService accommodationServiceService;
+    private FoodServiceService foodServiceService;
 
     @Container
     static final MongoDBContainer mongo = new MongoDBContainer("mongo:4.4.6");
@@ -58,24 +55,20 @@ class AccommodationServiceControllerTest {
     static KafkaConsumer<Object, Object> mockKafkaConsumer;
 
     static void createMockKafkaConsumer() {
-        String groupId_1 = "service-group";
-        String groupId_2 = "service-type-group";
-        String groupId_3 = "my-consumer-group";
+        String groupId = "food-service-group";
         Map<String, Object> properties = new HashMap<>();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId_1);
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId_2);
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId_3);
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         properties.put(JsonDeserializer.TRUSTED_PACKAGES, "co.edu.javeriana.msc.*");
         mockKafkaConsumer = new KafkaConsumer<>(properties, new JsonDeserializer<>(), new JsonDeserializer<>());
-        mockKafkaConsumer.subscribe(List.of("serviceTypeQueue"));
+        mockKafkaConsumer.subscribe(List.of("foodServiceQueue"));
     }
 
     @BeforeAll
-    static void beforeAll(@Autowired AccommodationServiceRepository accommodationServiceRepository) {
+    static void beforeAll(@Autowired FoodServiceRepository foodServiceRepository) {
         kafka.start();
         createMockKafkaConsumer();
         mongo.start();
@@ -90,8 +83,8 @@ class AccommodationServiceControllerTest {
     @Test
     @Order(1)
     void testCreateService() throws Exception {
-        AccommodationServiceRequest request = createMockRequest();
-        Long createdId = accommodationServiceService.createService(request);
+        FoodServiceRequest request = createMockRequest();
+        Long createdId = foodServiceService.createService(request);
 
         assertThat(createdId).isNotNull();
     }
@@ -99,48 +92,47 @@ class AccommodationServiceControllerTest {
     @Test
     @Order(2)
     void testUpdateService() throws Exception {
-        AccommodationServiceRequest request = createMockRequest();
-        Long createdId = accommodationServiceService.createService(request);
+        FoodServiceRequest request = createMockRequest();
+        Long createdId = foodServiceService.createService(request);
 
-        AccommodationServiceRequest updatedRequest = new AccommodationServiceRequest(
+        FoodServiceRequest updatedRequest = new FoodServiceRequest(
                 createdId,
-                "Updated Name",
+                "Updated Food Service",
                 "Updated Description",
-                BigDecimal.valueOf(300.00),
+                BigDecimal.valueOf(150.00),
                 new LocationResponse(
                         1L,
-                        "123 Updated St",
-                        41.9028,
-                        12.4964,
-                        "Italy",
-                        "Rome",
-                        "Lazio"
+                        "456 Updated St",
+                        51.5074,
+                        -0.1278,
+                        "UK",
+                        "London",
+                        "England"
                 ),
                 request.startDate(),
                 request.endDate(),
-                "updatedSupplier123",
-                new AccommodationTypeResponse(2L, "Updated Luxury Hotel"),
-                150
+                "updatedSupplier456",
+                new FoodTypeResponse(2L, "Updated Gourmet Meal")
         );
 
-        accommodationServiceService.updateService(updatedRequest);
+        foodServiceService.updateService(updatedRequest);
     }
 
     @Test
     @Order(3)
     void testDeleteService() throws Exception {
-        AccommodationServiceRequest request = createMockRequest();
-        Long createdId = accommodationServiceService.createService(request);
+        FoodServiceRequest request = createMockRequest();
+        Long createdId = foodServiceService.createService(request);
 
-        accommodationServiceService.deleteService(createdId);
+        foodServiceService.deleteService(createdId);
     }
 
-    private AccommodationServiceRequest createMockRequest() {
-        return new AccommodationServiceRequest(
+    private FoodServiceRequest createMockRequest() {
+        return new FoodServiceRequest(
                 null,
-                "Luxury Hotel",
-                "A 5-star hotel with premium facilities",
-                BigDecimal.valueOf(200.00),
+                "Gourmet Meal",
+                "A luxury gourmet meal service",
+                BigDecimal.valueOf(100.00),
                 new LocationResponse(
                         1L,
                         "123 Main St",
@@ -153,8 +145,7 @@ class AccommodationServiceControllerTest {
                 Instant.now(),
                 Instant.now().plusSeconds(3600 * 24),
                 "supplier123",
-                new AccommodationTypeResponse(1L, "Luxury Hotel"),
-                100
+                new FoodTypeResponse(1L, "Gourmet Meal")
         );
     }
 }
