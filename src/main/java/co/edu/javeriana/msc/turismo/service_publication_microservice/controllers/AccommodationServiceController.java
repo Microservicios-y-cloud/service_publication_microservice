@@ -23,7 +23,7 @@ public class AccommodationServiceController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteService(@PathVariable Long id) {
         accommodationServiceService.deleteService(id);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.noContent().build();
     }
     @PutMapping
     public ResponseEntity<Void> updateService(
